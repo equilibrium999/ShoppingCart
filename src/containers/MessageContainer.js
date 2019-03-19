@@ -13,7 +13,7 @@ class MessageContainer extends Component {
 }
 
 MessageContainer.propTypes = {
-    "message": PropTypes.arrayOf(PropTypes.string).isRequired
+    "message": PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => {
