@@ -5,7 +5,7 @@ import Cart from "./../components/Cart";
 import CartItem from "./../components/CartItem";
 import CartResult from "./../components/CartResult";
 import * as Message from "./../constants/Message";
-import { actDeleteProductInCart } from "./../actions/index";
+import { actDeleteProductInCart, actChangeMessage, actUpdateProductInCart} from "./../actions/index";
 
 class CartContainer extends Component {
     render() {
@@ -19,7 +19,7 @@ class CartContainer extends Component {
     }
 
     showCartItem = (cart) => {
-        var {onDeleteProductInCart} = this.props;
+        var {onDeleteProductInCart, onChangeMessage, onUpdateProductInCart} = this.props;
         var result = <tr>
             <td>{Message.MSG_CART_EMPTY}</td>
         </tr>;
@@ -31,6 +31,8 @@ class CartContainer extends Component {
                         item={item} 
                         index={index}
                         onDeleteProductInCart={onDeleteProductInCart}
+                        onChangeMessage={onChangeMessage}
+                        onUpdateProductInCart={onUpdateProductInCart}
                     />
                 );
             });
@@ -61,7 +63,10 @@ CartContainer.propTypes = {
             }).isRequired,
             "quantity": PropTypes.number.isRequired
         })
-    ).isRequired
+    ).isRequired,
+    "onDeleteProductInCart": PropTypes.func.isRequired,
+    "onChangeMessage": PropTypes.func.isRequired,
+    "onUpdateProductInCart": PropTypes.func.isRequired
 }
 
 const mapStateToProps= state => {
@@ -74,6 +79,12 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         "onDeleteProductInCart": (product) => {
             dispatch(actDeleteProductInCart(product));
+        },
+        "onChangeMessage": (message) => {
+            dispatch(actChangeMessage(message));
+        },
+        "onUpdateProductInCart": (product, quantity) => {
+            dispatch(actUpdateProductInCart(product, quantity));
         }
     }
 }
